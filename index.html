@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área de Trabalho Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .icon-hover {
+            transition: all 0.2s ease;
+        }
+        
+        .icon-hover:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        .taskbar {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .window {
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);
+        }
+        
+        body {
+            background-image: url('https://wallpapers.com/images/hd/racer-lightning-mcqueen-cars-2-crr4sr3p1gt8zq8i.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .desktop-icon {
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .desktop-icon:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-5px);
+        }
+        
+        .spreadsheet-cell {
+            min-width: 100px;
+            height: 30px;
+            border: 1px solid #e2e8f0;
+            padding: 2px 5px;
+            outline: none;
+            font-size: 14px;
+        }
+        
+        .spreadsheet-cell:focus {
+            border-color: #3b82f6;
+            background-color: #f8fafc;
+        }
+        
+        .spreadsheet-header {
+            background-color: #f1f5f9;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .spreadsheet-title-header {
+            background-color: #3b82f6;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans">
+    <!-- Taskbar -->
+    <div class="taskbar fixed bottom-0 left-0 right-0 bg-white/80 border-t border-gray-200 flex items-center justify-between px-4 py-2 z-50">
+        <div class="flex items-center space-x-2">
+            <button id="menu-btn" class="p-2 rounded-full hover:bg-gray-200 transition">
+                <i class="fas fa-bars text-gray-700"></i>
+            </button>
+            <button id="apps-btn" class="p-2 rounded-full hover:bg-gray-200 transition">
+                <i class="fas fa-th text-gray-700"></i>
+            </button>
+        </div>
+        <div class="flex items-center space-x-2">
+            <div id="clock" class="px-3 py-1 text-sm font-medium text-gray-700"></div>
+            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Icons -->
+    <div class="container mx-auto px-4 py-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <!-- Saldo Futuro -->
+        <div class="desktop-icon fade-in" style="animation-delay: 0.1s">
+            <div class="icon-hover flex flex-col items-center p-4 rounded-lg cursor-pointer transition" onclick="window.open('https://saladofuturo.educacao.sp.gov.br/escolha-de-perfil', '_blank')">
+                <div class="w-16 h-16 mb-2 flex items-center justify-center">
+                    <img src="https://midiasstoragesec.blob.core.windows.net/001/2025/02/sala-do-futuro-fw_.png" alt="Sala do Futuro" class="w-full h-full object-contain">
+                </div>
+                <span class="text-sm font-medium text-center text-white drop-shadow-md">Sala do Futuro</span>
+            </div>
+        </div>
+        
+        <!-- GitHub -->
+        <div class="desktop-icon fade-in" style="animation-delay: 0.2s">
+            <div class="icon-hover flex flex-col items-center p-4 rounded-lg cursor-pointer transition" onclick="window.open('https://www.github.com', '_blank')">
+                <div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-white mb-2">
+                    <i class="fab fa-github text-xl"></i>
+                </div>
+                <span class="text-sm font-medium text-center text-white drop-shadow-md">GitHub</span>
+            </div>
+        </div>
+        
+        <!-- CMSP Hacks -->
+        <div class="desktop-icon fade-in" style="animation-delay: 0.3s">
+            <div class="icon-hover flex flex-col items-center p-4 rounded-lg cursor-pointer transition" onclick="window.open('https://darkmodde.github.io/CMSP-Hacks/', '_blank')">
+                <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center text-white mb-2">
+                    <i class="fas fa-code text-xl"></i>
+                </div>
+                <span class="text-sm font-medium text-center text-white drop-shadow-md">CMSP Hacks</span>
+            </div>
+        </div>
+        
+        <!-- Tarefas -->
+        <div class="desktop-icon fade-in" style="animation-delay: 0.4s">
+            <div class="icon-hover flex flex-col items-center p-4 rounded-lg cursor-pointer transition" onclick="window.open('https://doritus.mmrcoss.tech/', '_blank')">
+                <div class="w-16 h-16 mb-2 flex items-center justify-center">
+                    <img src="https://expansao.mmrcoss.tech/assets/doritus.svg" alt="Tarefas" class="w-full h-full object-contain">
+                </div>
+                <span class="text-sm font-medium text-center text-white drop-shadow-md">Tarefas</span>
+            </div>
+        </div>
+        
+        <!-- Redação -->
+        <div class="desktop-icon fade-in" style="animation-delay: 0.5s">
+            <div class="icon-hover flex flex-col items-center p-4 rounded-lg cursor-pointer transition" onclick="window.open('https://redacao.mmrcoss.tech/', '_blank')">
+                <div class="w-16 h-16 mb-2 flex items-center justify-center">
+                    <img src="https://expansao.mmrcoss.tech/assets/doritus.svg" alt="Redação" class="w-full h-full object-contain">
+                </div>
+                <span class="text-sm font-medium text-center text-white drop-shadow-md">Redação</span>
+            </div>
+        </div>
+        
+        <!-- Expansão -->
+        <div class="desktop-icon fade-in" style="animation-delay: 0.6s">
+            <div class="icon-hover flex flex-col items-center p-4 rounded-lg cursor-pointer transition" onclick="window.open('https://expansao.mmrcoss.tech/', '_blank')">
+                <div class="w-16 h-16 mb-2 flex items-center justify-center">
+                    <img src="https://expansao.mmrcoss.tech/assets/doritus.svg" alt="Expansão" class="w-full h-full object-contain">
+                </div>
+                <span class="text-sm font-medium text-center text-white drop-shadow-md">Expansão</span>
+            </div>
+        </div>
+        
+        <!-- Planilha -->
+        <div class="desktop-icon fade-in" style="animation-delay: 0.7s">
+            <div class="icon-hover flex flex-col items-center p-4 rounded-lg cursor-pointer transition" onclick="openSpreadsheet()">
+                <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center text-white mb-2">
+                    <i class="fas fa-table text-xl"></i>
+                </div>
+                <span class="text-sm font-medium text-center text-white drop-shadow-md">Planilha</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Window -->
+    <div id="calendar-window" class="window fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl z-40 w-11/12 max-w-md hidden">
+        <div class="flex justify-between items-center border-b border-gray-200 px-4 py-3">
+            <h3 class="font-semibold text-lg">Agenda & Calendário</h3>
+            <button id="close-calendar" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-4">
+                <button id="prev-month" class="p-2 rounded-full hover:bg-gray-100">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <h4 id="current-month" class="font-medium text-lg">Junho 2023</h4>
+                <button id="next-month" class="p-2 rounded-full hover:bg-gray-100">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-7 gap-1 mb-2">
+                <div class="text-center text-xs font-medium text-gray-500">Dom</div>
+                <div class="text-center text-xs font-medium text-gray-500">Seg</div>
+                <div class="text-center text-xs font-medium text-gray-500">Ter</div>
+                <div class="text-center text-xs font-medium text-gray-500">Qua</div>
+                <div class="text-center text-xs font-medium text-gray-500">Qui</div>
+                <div class="text-center text-xs font-medium text-gray-500">Sex</div>
+                <div class="text-center text-xs font-medium text-gray-500">Sáb</div>
+            </div>
+            
+            <div id="calendar-days" class="grid grid-cols-7 gap-1">
+                <!-- Calendar days will be populated by JavaScript -->
+            </div>
+            
+            <div class="mt-6">
+                <h4 class="font-medium mb-2">Compromissos</h4>
+                <div id="events-list" class="space-y-2 max-h-40 overflow-y-auto">
+                    <!-- Events will be populated by JavaScript -->
+                </div>
+                
+                <div class="mt-4">
+                    <div class="flex items-center space-x-2">
+                        <input id="new-event" type="text" class="flex-1 border border-gray-300 rounded px-3 py-2 text-sm" placeholder="Novo compromisso">
+                        <button id="add-event" class="bg-blue-500 text-white px-3 py-2 rounded text-sm hover:bg-blue-600">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spreadsheet Window -->
+    <div id="spreadsheet-window" class="window fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl z-40 w-11/12 max-w-4xl hidden">
+        <div class="flex justify-between items-center border-b border-gray-200 px-4 py-3">
+            <h3 class="font-semibold text-lg">Planilha de Tarefas</h3>
+            <div class="flex space-x-2">
+                <button id="add-row" class="p-1 rounded hover:bg-gray-100 text-gray-700">
+                    <i class="fas fa-plus-circle"></i> Linha
+                </button>
+                <button id="add-col" class="p-1 rounded hover:bg-gray-100 text-gray-700">
+                    <i class="fas fa-plus-circle"></i> Coluna
+                </button>
+                <button id="close-spreadsheet" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="p-4 overflow-auto max-h-[70vh]">
+            <div id="spreadsheet-container" class="inline-block border border-gray-200">
+                <!-- Spreadsheet will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Apps Menu -->
+    <div id="apps-menu" class="fixed bottom-16 left-4 bg-white rounded-lg shadow-lg p-2 z-50 hidden">
+        <div class="grid grid-cols-4 gap-2">
+            <div class="p-2 rounded hover:bg-gray-100 cursor-pointer" onclick="window.open('https://mail.google.com', '_blank')">
+                <div class="w-10 h-10 bg-red-500 rounded flex items-center justify-center text-white mx-auto mb-1">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <span class="text-xs text-center block">E-mail</span>
+            </div>
+            <div class="p-2 rounded hover:bg-gray-100 cursor-pointer" onclick="window.open('https://drive.google.com', '_blank')">
+                <div class="w-10 h-10 bg-blue-500 rounded flex items-center justify-center text-white mx-auto mb-1">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <span class="text-xs text-center block">Drive</span>
+            </div>
+            <div class="p-2 rounded hover:bg-gray-100 cursor-pointer" onclick="window.open('https://calendar.google.com', '_blank')">
+                <div class="w-10 h-10 bg-green-500 rounded flex items-center justify-center text-white mx-auto mb-1">
+                    <i class="fas fa-calendar"></i>
+                </div>
+                <span class="text-xs text-center block">Calendário</span>
+            </div>
+            <div class="p-2 rounded hover:bg-gray-100 cursor-pointer" onclick="window.open('https://photos.google.com', '_blank')">
+                <div class="w-10 h-10 bg-purple-500 rounded flex items-center justify-center text-white mx-auto mb-1">
+                    <i class="fas fa-images"></i>
+                </div>
+                <span class="text-xs text-center block">Fotos</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            const dateString = now.toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'short' });
+            document.getElementById('clock').textContent = `${timeString} • ${dateString}`;
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+        
+        // Calendar functionality
+        let currentDate = new Date();
+        let events = JSON.parse(localStorage.getItem('desktop-events')) || [];
+        
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('current-month').textContent = 
+                new Date(year, month, 1).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+            
+            let calendarHTML = '';
+            
+            // Previous month days
+            for (let i = firstDay; i > 0; i--) {
+                const day = daysInPrevMonth - i + 1;
+                calendarHTML += `<div class="text-center p-1 text-gray-400">${day}</div>`;
+            }
+            
+            // Current month days
+            const today = new Date();
+            for (let i = 1; i <= daysInMonth; i++) {
+                const date = new Date(year, month, i);
+                const isToday = date.getDate() === today.getDate() && 
+                                date.getMonth() === today.getMonth() && 
+                                date.getFullYear() === today.getFullYear();
+                
+                const hasEvent = events.some(event => {
+                    const eventDate = new Date(event.date);
+                    return eventDate.getDate() === i && 
+                           eventDate.getMonth() === month && 
+                           eventDate.getFullYear() === year;
+                });
+                
+                const dayClass = isToday ? 'bg-blue-500 text-white rounded-full' : 
+                                hasEvent ? 'bg-blue-100 rounded-full' : '';
+                
+                calendarHTML += `
+                    <div class="text-center p-1 cursor-pointer hover:bg-gray-100 ${dayClass}" 
+                         onclick="showEvents(${i}, ${month}, ${year})">
+                        ${i}
+                    </div>`;
+            }
+            
+            // Next month days
+            const totalCells = 42; // 6 weeks
+            const remainingCells = totalCells - (firstDay + daysInMonth);
+            for (let i = 1; i <= remainingCells; i++) {
+                calendarHTML += `<div class="text-center p-1 text-gray-400">${i}</div>`;
+            }
+            
+            document.getElementById('calendar-days').innerHTML = calendarHTML;
+            renderEvents();
+        }
+        
+        function renderEvents() {
+            const eventsHTML = events
+                .sort((a, b) => new Date(a.date) - new Date(b.date))
+                .map(event => `
+                    <div class="flex items-center justify-between bg-gray-50 p-2 rounded text-sm">
+                        <div>
+                            <span class="font-medium">${event.text}</span>
+                            <div class="text-xs text-gray-500">
+                                ${new Date(event.date).toLocaleDateString('pt-BR')}
+                            </div>
+                        </div>
+                        <button onclick="removeEvent('${event.id}')" class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash-alt text-xs"></i>
+                        </button>
+                    </div>
+                `)
+                .join('');
+                
+            document.getElementById('events-list').innerHTML = eventsHTML || '<p class="text-gray-500 text-sm">Nenhum compromisso</p>';
+        }
+        
+        function showEvents(day, month, year) {
+            const date = new Date(year, month, day);
+            const eventText = prompt("Adicionar compromisso para " + date.toLocaleDateString('pt-BR') + ":");
+            
+            if (eventText) {
+                events.push({
+                    id: Date.now().toString(),
+                    text: eventText,
+                    date: date.toISOString()
+                });
+                
+                localStorage.setItem('desktop-events', JSON.stringify(events));
+                renderCalendar();
+            }
+        }
+        
+        function removeEvent(id) {
+            events = events.filter(event => event.id !== id);
+            localStorage.setItem('desktop-events', JSON.stringify(events));
+            renderCalendar();
+        }
+        
+        // Spreadsheet functionality
+        let spreadsheetData = JSON.parse(localStorage.getItem('spreadsheet-data')) || {
+            rows: 10,
+            cols: 6,
+            cells: {}
+        };
+        
+        // Definir os títulos das colunas
+        const columnTitles = ['Data', 'Nome', 'R.A', 'Senha', 'Tarefa', 'Observações'];
+        
+        function openSpreadsheet() {
+            document.getElementById('spreadsheet-window').classList.remove('hidden');
+            document.getElementById('apps-menu').classList.add('hidden');
+            document.getElementById('calendar-window').classList.add('hidden');
+            renderSpreadsheet();
+        }
+        
+        function renderSpreadsheet() {
+            const container = document.getElementById('spreadsheet-container');
+            let html = '<table class="border-collapse">';
+            
+            // Header row with column letters
+            html += '<tr>';
+            html += '<th class="spreadsheet-cell spreadsheet-header w-10"></th>'; // Empty corner cell
+            
+            // Adicionar títulos das colunas
+            for (let col = 0; col < spreadsheetData.cols; col++) {
+                const title = columnTitles[col] || String.fromCharCode(65 + col);
+                html += `<th class="spreadsheet-cell spreadsheet-title-header">${title}</th>`;
+            }
+            
+            html += '</tr>';
+            
+            // Data rows
+            for (let row = 0; row < spreadsheetData.rows; row++) {
+                html += '<tr>';
+                html += `<td class="spreadsheet-cell spreadsheet-header">${row + 1}</td>`;
+                
+                for (let col = 0; col < spreadsheetData.cols; col++) {
+                    const cellId = `${String.fromCharCode(65 + col)}${row + 1}`;
+                    const cellValue = spreadsheetData.cells[cellId] || '';
+                    
+                    html += `
+                        <td>
+                            <input 
+                                type="text" 
+                                class="spreadsheet-cell" 
+                                data-cell="${cellId}"
+                                value="${cellValue}"
+                                oninput="updateCell('${cellId}', this.value)"
+                            >
+                        </td>
+                    `;
+                }
+                
+                html += '</tr>';
+            }
+            
+            html += '</table>';
+            container.innerHTML = html;
+        }
+        
+        function updateCell(cellId, value) {
+            spreadsheetData.cells[cellId] = value;
+            localStorage.setItem('spreadsheet-data', JSON.stringify(spreadsheetData));
+        }
+        
+        function addRow() {
+            spreadsheetData.rows += 1;
+            localStorage.setItem('spreadsheet-data', JSON.stringify(spreadsheetData));
+            renderSpreadsheet();
+        }
+        
+        function addColumn() {
+            spreadsheetData.cols += 1;
+            // Adiciona um novo título vazio se necessário
+            if (spreadsheetData.cols > columnTitles.length) {
+                columnTitles.push(String.fromCharCode(64 + spreadsheetData.cols));
+            }
+            localStorage.setItem('spreadsheet-data', JSON.stringify(spreadsheetData));
+            renderSpreadsheet();
+        }
+        
+        // Event listeners
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.getElementById('calendar-window').classList.toggle('hidden');
+            document.getElementById('apps-menu').classList.add('hidden');
+            document.getElementById('spreadsheet-window').classList.add('hidden');
+            renderCalendar();
+        });
+        
+        document.getElementById('apps-btn').addEventListener('click', function() {
+            document.getElementById('apps-menu').classList.toggle('hidden');
+            document.getElementById('calendar-window').classList.add('hidden');
+            document.getElementById('spreadsheet-window').classList.add('hidden');
+        });
+        
+        document.getElementById('close-calendar').addEventListener('click', function() {
+            document.getElementById('calendar-window').classList.add('hidden');
+        });
+        
+        document.getElementById('close-spreadsheet').addEventListener('click', function() {
+            document.getElementById('spreadsheet-window').classList.add('hidden');
+        });
+        
+        document.getElementById('prev-month').addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+        
+        document.getElementById('next-month').addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+        
+        document.getElementById('add-event').addEventListener('click', function() {
+            const eventText = document.getElementById('new-event').value;
+            if (eventText) {
+                events.push({
+                    id: Date.now().toString(),
+                    text: eventText,
+                    date: currentDate.toISOString()
+                });
+                
+                localStorage.setItem('desktop-events', JSON.stringify(events));
+                document.getElementById('new-event').value = '';
+                renderCalendar();
+            }
+        });
+        
+        document.getElementById('add-row').addEventListener('click', addRow);
+        document.getElementById('add-col').addEventListener('click', addColumn);
+        
+        // Initialize
+        renderCalendar();
+    </script>
+</body>
+</html>
